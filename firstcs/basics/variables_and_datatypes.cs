@@ -2,7 +2,7 @@
 
 namespace Basics {
     class VarAndDTs {
-        static void Main(string[] args) {
+        static void xMain(string[] args) {
             // Declare and initialise variables
             int fav_number = 10;
             double deci = 2.718;                                        // if you are referring to other languages,
