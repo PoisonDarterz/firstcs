@@ -23,7 +23,7 @@ namespace Basics {
             Console.WriteLine("The sum of the 2 numbers is: " + sum);
         }
         
-        static void Main(string[] args) {
+        static void xMain(string[] args) {
             int[] nums = new int[2];
             nums = getInput();
             int sum = getSum(nums);
