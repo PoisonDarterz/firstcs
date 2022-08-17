@@ -1,56 +1,42 @@
 ﻿using System;
 
-namespace Basics {
-    class temparray {
-
-        static string[] getID() {
-            string[] input = new string[5];
-            Console.WriteLine("-------Input of Station ID--------");
+namespace Tempclass {
+     class Station {
+        // variables
+        public string[] sName = new string[5];
+        public string[] sID = new string[5];
+        
+        public Station() { // constructor
             for (int i = 0; i < 5; i++) {
-                Console.Write("Enter station ID " + (i + 1) + ": ");
-                input[i] = Console.ReadLine();
+                Console.Write("Enter station ID: ");
+                sID[i] = Console.ReadLine();
             }
-            return input;
+            for (int i = 0; i < 5; i++) {
+                Console.Write("Enter station name: ");
+                sName[i] = Console.ReadLine();
+            }
         }
+    }
 
-        static string[] getName(string[] sID) {
-            string[] input = new string[5];
-            Console.WriteLine("\n-------Input of Station Name-------");
-            for (int i = 0; i < 5; i++) {
-                Console.Write("Enter station name for " + sID[i] + ": ");
-                input[i] = Console.ReadLine();
-            }
-            return input;
-        }
-
-        static double[] getTemp(string[] sName) {
-            double[] input = new double[5];
-            Console.WriteLine("\n-----Input of Temperature in Fahrenheit-----");
-            for (int i = 0; i < 5; i++) {
-                Console.Write("Enter temperature of " + sName[i] + ": ");
-                input[i] = Convert.ToDouble(Console.ReadLine());
-            }
-            return input;
-        } //end of input methods
-
-        //calculation method getCelsius(), getAvg()
-        static double[] getCelsius(double[] frh) {
-            double[] cels = new double[5];
-            for (int i = 0; i < 5; i++) {
-                cels[i] = (frh[i] - 32) * 5 / 9;
-            }
-            return cels;
-        }
-
-        static double getAvg(double[] cels) {
-            double avg, sum = 0;
-            for (int i = 0; i < 5; i++) {
-                sum = sum + cels[i];
+    class Temperature {
+        // variables
+        public double[] celsius = new double[5];
+        public double[] fahrenheit = new double[5];
+        public double avg;
+        
+        public Temperature() { // constructor
+            double sum = 0.0;
+            for(int i = 0; i < 5; i++) {
+                Console.Write("Enter temperature in Fahrenheit: ");
+                fahrenheit[i] = Convert.ToDouble(Console.ReadLine());
+                celsius[i] = (fahrenheit[i] - 32) * 5 / 9;
+                sum = sum + celsius[i];
             }
             avg = sum / 5;
-            return avg;
-        } //end of calculation methods
+        }
+    }
 
+    public class tempclass {
         static void fullReport(string[] sID, string[] sName, double[] cels) {
             string[] dfcels = new string[5];
             for (int j = 0; j < 5; j++) {
@@ -134,55 +120,46 @@ namespace Basics {
                             //This is not considered an infinite loop as it contains a program-ending sentinel value "N".
         } //end search()
 
-        static void xMain(string[] args) {
-            string[] stationID = new string[5];
-            string[] stationName = new string[5];
-            double[] fahrenheit = new double[5];
-            double[] celsius = new double[5];
-            //obtain inputs via methods, and conversion of F to C temperatures
-            stationID = getID();
-            stationName = getName(stationID);
-            fahrenheit = getTemp(stationName);
-            celsius = getCelsius(fahrenheit);
-            //calculate average
-            double average = getAvg(celsius);
-            string dfavg = average.ToString("#.00");
-                /*determine max and min rows.
-                * System will determine the max and min temperatures first,
-                * then search for all stations with that max/min temps.
-                */
-                double maxTemp = celsius[0];
-                double minTemp = celsius[0];
-                List<string> maxName = new List<string>();
-                List<string> minName = new List<string>();
-                List<string> maxID = new List<string>();
-                List<string> minID = new List<string>();
-                List<int> maxIndex = new List<int>();
-                List<int> minIndex = new List<int>();
-                for (int m = 0; m < 5; m++) {
-                    if (celsius[m] > maxTemp) {
-                        maxTemp = celsius[m];
-                    }
-                    if (celsius[m] < minTemp) {
-                        minTemp = celsius[m];
-                    }
+        static void Main(string[] args) {
+            Station sta = new Station();
+            Temperature temp = new Temperature();
+            string dfavg = temp.avg.ToString("#.00");
+            /*determine max and min rows.
+            * System will determine the max and min temperatures first,
+            * then search for all stations with that max/min temps.
+            */
+            double maxTemp = temp.celsius[0];
+            double minTemp = temp.celsius[0];
+            List<string> maxName = new List<string>();
+            List<string> minName = new List<string>();
+            List<string> maxID = new List<string>();
+            List<string> minID = new List<string>();
+            List<int> maxIndex = new List<int>();
+            List<int> minIndex = new List<int>();
+            for (int m = 0; m < 5; m++) {
+                if (temp.celsius[m] > maxTemp) {
+                    maxTemp = temp.celsius[m];
                 }
-                for (int n = 0; n < 5; n++) {
-                    if (celsius[n] == maxTemp) {
-                        maxID.Add(stationID[n]);
-                        maxName.Add(stationName[n]);
-                        maxIndex.Add(n);
-                    }
-                    if (celsius[n] == minTemp) {
-                        minID.Add(stationID[n]);
-                        minName.Add(stationName[n]);
-                        minIndex.Add(n);
-                    }
+                if (temp.celsius[m] < minTemp) {
+                    minTemp = temp.celsius[m];
                 }
+            }
+            for (int n = 0; n < 5; n++) {
+                if (temp.celsius[n] == maxTemp) {
+                    maxID.Add(sta.sID[n]);
+                    maxName.Add(sta.sName[n]);
+                    maxIndex.Add(n);
+                }
+                if (temp.celsius[n] == minTemp) {
+                    minID.Add(sta.sID[n]);
+                    minName.Add(sta.sName[n]);
+                    minIndex.Add(n);
+                }
+            }
             //final report, and search
-            fullReport(stationID, stationName, celsius);
+            fullReport(sta.sID, sta.sName, temp.celsius);
             tempReport(maxTemp, minTemp, maxID, minID, maxIndex, minIndex, maxName, minName, dfavg);
-            search(stationID, stationName, fahrenheit, celsius);
+            search(sta.sID, sta.sName, temp.fahrenheit, temp.celsius);
         }
     }
 }
