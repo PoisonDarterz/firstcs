@@ -120,7 +120,7 @@ namespace Tempclass {
                             //This is not considered an infinite loop as it contains a program-ending sentinel value "N".
         } //end search()
 
-        static void Main(string[] args) {
+        static void xMain(string[] args) {
             Station sta = new Station();
             Temperature temp = new Temperature();
             string dfavg = temp.avg.ToString("#.00");
