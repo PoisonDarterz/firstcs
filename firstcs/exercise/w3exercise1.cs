@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Net.Http.Headers;
 
 namespace Exercise {
     class w3e1 {
-        static void Main(string[] args) {
+        static void xMain(string[] args) {
             //q5
             Console.WriteLine("Input the first number: ");
             int q5a = Convert.ToInt32(Console.ReadLine());
@@ -109,9 +108,9 @@ namespace Exercise {
             bool isPrime;
             int q26sum = 2;
             int q26count = 0;
-            for(int i=3; i<=1000000; i+=2) {
+            for(int i=3; i<=10000; i+=2) {
                 isPrime = true;
-                for (int j=2; j<=1000000; j++) {
+                for (int j=2; j<=10000; j++) {
                     if (i > j) {
                         if (i % j == 0) {
                             isPrime = false;
