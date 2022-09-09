@@ -116,6 +116,8 @@ namespace Exercise {
                             isPrime = false;
                             break;
                         }
+                    } else {
+                        break;
                     }
                 }
                 if (isPrime) {

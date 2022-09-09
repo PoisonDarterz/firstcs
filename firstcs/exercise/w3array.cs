@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace Exercise {
     class w3arr {
-        static void Main(string[] args) {
+        static void xMain(string[] args) {
             int[] array1 = {1, 2, 2, 3, 3, 4, 5, 6, 5, 7, 7, 7, 8, 8, 1};
             int sum = 0;
             //q47
